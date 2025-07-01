@@ -1,10 +1,5 @@
 # 📊 Vanguard A/B Test – Proyecto de Experimento Digital
 
-## 👥 Autores
-- Fran Ramírez Martín
-- Fred Mpeso
-- Andrés Muñoz
-
 ## 🧠 Descripción del proyecto
 
 Este proyecto analiza un experimento A/B llevado a cabo por el equipo de Customer Experience de **Vanguard**, una de las gestoras de inversión más importantes de EE.UU.
@@ -15,28 +10,29 @@ El objetivo del experimento fue evaluar si un **nuevo diseño de la interfaz dig
 
 ## 📁 Estructura del repositorio
 
+\`\`\`plaintext
 vanguard-ab-test/
 ├── data/
-│ ├── raw/ # Datos originales descargados
-│ └── processed/ # Datos limpios y fusionados
-├── kanban/ # Enlace al tablero de Trello
-├── notebooks/ # Notebooks principales del análisis
-├── PowerBI/ # Dashboard de PowerBI
-├── slides/ # Presentación final (enlace)
-├── src/ # Funciones reutilizables en .py
-├── README.md # Este archivo
+│   ├── raw/         # Datos originales descargados
+│   └── processed/   # Datos limpios y fusionados
+├── kanban/          # Tablero de seguimiento (Trello)
+├── notebooks/       # Jupyter Notebooks con el análisis
+├── PowerBI/         # Dashboard interactivo en Power BI
+├── slides/          # Presentación final
+├── src/             # Funciones auxiliares reutilizables
+├── README.md        # Este archivo
 └── requirements.txt # Librerías necesarias
-
+\`\`\`
 
 ---
 
 ## 🧾 Datasets utilizados
 
-| Dataset                       | Descripción |
-|-------------------------------|-------------|
-| `df_final_demo`               | Información demográfica y relación con Vanguard (edad, género, saldo, llamadas, logins…) |
-| `df_final_web_data_pt_1/2`    | Navegación digital: pasos realizados por los usuarios, con timestamp |
-| `df_final_experiment_clients` | Información de pertenencia al grupo de control o test |
+| Dataset                        | Descripción |
+|--------------------------------|-------------|
+| \`df_final_demo\`                | Información demográfica y relación con Vanguard (edad, género, saldo, llamadas, logins...) |
+| \`df_final_web_data_pt_1/2\`     | Trazabilidad digital: pasos realizados por cada cliente con timestamp |
+| \`df_final_experiment_clients\`  | Grupo asignado en el experimento (control o test) |
 
 ---
 
@@ -53,7 +49,7 @@ vanguard-ab-test/
 ## 📌 Principales KPIs analizados
 
 - ✅ **Tasa de finalización del proceso online**  
-  Proporción de clientes que alcanzan el paso de confirmación.
+  Proporción de usuarios que alcanzan el paso de confirmación.
 
 - 🧭 **Número de pasos únicos completados por cliente**  
   Cuántos pasos distintos (`step_1`, `step_2`…) ha alcanzado cada cliente.
@@ -97,14 +93,15 @@ vanguard-ab-test/
 
 ## 📊 Visualización en PowerBI
 
-> Link al dashboard interactivo: [Enlace aquí](#)
+> 🧭 Visualización interactiva del análisis:  
+> [Abrir dashboard en Power BI](./PowerBI/vanguard_dashboard.pbix)
 
 ---
 
 ## 📂 Presentación final
 
-> Link a Canva: [Enlace aquí](#)
-
+> 🎤 Presentación resumida del proyecto:  
+> [Ver en Canva](#)
 
 ---
 
@@ -123,15 +120,28 @@ vanguard-ab-test/
 
 ## 🚀 Cómo ejecutar este proyecto
 
-1. Clonar el repositorio
-2. Crear un entorno virtual (opcional)
-3. Instalar dependencias con:  
-   `pip install -r requirements.txt`
-4. Ejecutar los notebooks en orden numérico dentro del directorio `notebooks/`
+1. Clona el repositorio  
+   \`git clone https://github.com/tuusuario/vanguard-ab-test.git\`
+
+2. (Opcional) Crea un entorno virtual  
+   \`python -m venv venv && source venv/bin/activate\`
+
+3. Instala las dependencias  
+   \`pip install -r requirements.txt\`
+
+4. Ejecuta los notebooks en orden desde el directorio \`notebooks/\`
+
+---
+
+## 👥 Autores
+
+- [Fran Ramírez](https://github.com/fran-eliot)  
+- Fred Mpeso  
+- [Andrés Muñoz](https://github.com/andreuti)  
 
 ---
 
 ## 📄 Licencia
 
-Este proyecto ha sido desarrollado en el contexto del Bootcamp de Data Analytics en Ironhack.
+Proyecto desarrollado como parte del **Bootcamp de Data Analytics – Ironhack**, con fines educativos y no comerciales.
 
