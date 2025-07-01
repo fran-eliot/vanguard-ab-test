@@ -36,6 +36,35 @@ vanguard-ab-test/
 
 ---
 
+## 🧹 Limpieza y preparación de datos
+
+Antes de realizar el análisis exploratorio y los tests de hipótesis, se llevó a cabo un proceso riguroso de limpieza y preparación de los datasets originales:
+
+- 🔍 **Gestión de valores nulos y duplicados**  
+  - Eliminación de registros duplicados y filas incompletas con información crítica ausente.
+  - Imputación de valores faltantes en columnas no esenciales mediante técnicas como imputación por mediana o creación de categorías "Desconocido".
+
+- 🧮 **Conversión y tipado correcto de columnas**  
+  - Transformación de columnas de fecha (`timestamp`) al tipo `datetime` para análisis temporales.
+  - Conversión de variables categóricas a tipo `category` para optimizar memoria y eficiencia.
+
+- 🔗 **Fusión y cruce de fuentes**  
+  - Integración de los tres datasets (`demográficos`, `web data`, `grupo experimento`) en un único dataframe preparado para análisis.
+
+- 🧪 **Filtrado de registros no válidos**  
+  - Exclusión de usuarios que no realizaron ningún paso digital para evitar sesgos.
+
+- ⚠️ **Tratamiento de outliers**  
+  - Identificación de valores atípicos extremos en variables como `saldo`, `edad` o `tiempo total`, aplicando exclusión o winsorización según el caso.
+
+- 🧱 **Generación de variables adicionales**  
+  - Cálculo de KPIs como número de pasos únicos, total de pasos, duración del proceso y tiempo medio por paso.
+  - Agrupación de edad en rangos para facilitar el análisis segmentado.
+
+Este proceso permitió asegurar la calidad, consistencia y fiabilidad de los datos antes de realizar el EDA y los análisis estadísticos del experimento.
+
+---
+
 ## 🎯 Objetivos del análisis
 
 - 🧪 **Evaluar el impacto del nuevo diseño** en la tasa de finalización del proceso online.
