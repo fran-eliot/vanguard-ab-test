@@ -1,28 +1,44 @@
 # 📊 Vanguard A/B Test – Proyecto de Experimento Digital
 
+![Status](https://img.shields.io/badge/status-Finalizado-brightgreen)
+![Python](https://img.shields.io/badge/python-3.10-blue)
+![Notebooks](https://img.shields.io/badge/jupyter-Notebook-orange)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Last Commit](https://img.shields.io/github/last-commit/fran-eliot/vanguard-ab-test)
+![Repo Size](https://img.shields.io/github/repo-size/fran-eliot/vanguard-ab-test)
+
 ## 🧠 Descripción del proyecto
 
 Este proyecto analiza un experimento A/B llevado a cabo por el equipo de Customer Experience de **Vanguard**, una de las gestoras de inversión más importantes de EE.UU.
 
-El objetivo del experimento fue evaluar si un **nuevo diseño de la interfaz digital**, acompañado de mensajes contextualizados durante el proceso online, conseguía **mejorar la experiencia de usuario** y **aumentar la tasa de finalización** del proceso online en comparación con el diseño anterior.
+El objetivo fue evaluar si un **nuevo diseño digital**, junto con mensajes contextualizados durante el proceso online, mejoraba la **experiencia de usuario** y **aumentaba la tasa de finalización** respecto al diseño anterior.
+
+---
+
+## 🎯 Objetivos del análisis
+
+- 🧪 Evaluar el impacto del nuevo diseño en la tasa de finalización del proceso online.
+- 📊 Explorar diferencias de comportamiento digital entre usuarios de los grupos Control y Test.
+- 📉 Analizar la interacción paso a paso, abandono y comportamiento por perfil de cliente.
+- 📈 Realizar tests de hipótesis para validar estadísticamente los hallazgos.
+- 📌 Ofrecer recomendaciones basadas en datos reales y visualizaciones claras.
 
 ---
 
 ## 📁 Estructura del repositorio
 
-\`\`\`plaintext
+```plaintext
 vanguard-ab-test/
 ├── data/
 │   ├── raw/         # Datos originales descargados
 │   └── processed/   # Datos limpios y fusionados
-├── kanban/          # Tablero de seguimiento (Trello)
 ├── notebooks/       # Jupyter Notebooks con el análisis
-├── PowerBI/         # Dashboard interactivo en Power BI
+├── PowerBI/         # Dashboard interactivo
 ├── slides/          # Presentación final
-├── src/             # Funciones auxiliares reutilizables
+├── src/             # Funciones auxiliares
 ├── README.md        # Este archivo
 └── requirements.txt # Librerías necesarias
-\`\`\`
+```
 
 ---
 
@@ -30,135 +46,105 @@ vanguard-ab-test/
 
 | Dataset                        | Descripción |
 |--------------------------------|-------------|
-| \`df_final_demo\`                | Información demográfica y relación con Vanguard (edad, género, saldo, llamadas, logins...) |
-| \`df_final_web_data_pt_1/2\`     | Trazabilidad digital: pasos realizados por cada cliente con timestamp |
-| \`df_final_experiment_clients\`  | Grupo asignado en el experimento (control o test) |
+| `df_final_demo`                | Datos demográficos y relación con Vanguard (edad, género, saldo, etc.) |
+| `df_final_web_data_pt_1/2`     | Trazabilidad digital: pasos realizados por cliente con timestamp |
+| `df_final_experiment_clients`  | Grupo asignado (Control o Test) |
 
 ---
 
 ## 🧹 Limpieza y preparación de datos
 
-Antes de realizar el análisis exploratorio y los tests de hipótesis, se llevó a cabo un proceso riguroso de limpieza y preparación de los datasets originales:
-
-- 🔍 **Gestión de valores nulos y duplicados**  
-  - Eliminación de registros duplicados y filas incompletas con información crítica ausente.
-  - Imputación de valores faltantes en columnas no esenciales mediante técnicas como imputación por mediana o creación de categorías "Desconocido".
-
-- 🧮 **Conversión y tipado correcto de columnas**  
-  - Transformación de columnas de fecha (`timestamp`) al tipo `datetime` para análisis temporales.
-  - Conversión de variables categóricas a tipo `category` para optimizar memoria y eficiencia.
-
-- 🔗 **Fusión y cruce de fuentes**  
-  - Integración de los tres datasets (`demográficos`, `web data`, `grupo experimento`) en un único dataframe preparado para análisis.
-
-- 🧪 **Filtrado de registros no válidos**  
-  - Exclusión de usuarios que no realizaron ningún paso digital para evitar sesgos.
-
-- ⚠️ **Tratamiento de outliers**  
-  - Identificación de valores atípicos extremos en variables como `saldo`, `edad` o `tiempo total`, aplicando exclusión o winsorización según el caso.
-
-- 🧱 **Generación de variables adicionales**  
-  - Cálculo de KPIs como número de pasos únicos, total de pasos, duración del proceso y tiempo medio por paso.
-  - Agrupación de edad en rangos para facilitar el análisis segmentado.
-
-Este proceso permitió asegurar la calidad, consistencia y fiabilidad de los datos antes de realizar el EDA y los análisis estadísticos del experimento.
+- 🔍 **Valores nulos y duplicados**: eliminación o imputación según relevancia.
+- 🧮 **Conversión de tipos**: fechas (`datetime`), categorías (`category`), etc.
+- 🔗 **Fusión de datasets**: unión de las tres fuentes en un único dataframe.
+- 🧪 **Filtrado de registros no válidos**: usuarios sin pasos digitales.
+- ⚠️ **Tratamiento de outliers**: detección y gestión en `saldo`, `edad`, `duración`.
+- 🧱 **Variables adicionales**: KPIs como número de pasos, duración, agrupación por edad.
 
 ---
 
-## 🎯 Objetivos del análisis
+## 📐 Métricas calculadas
 
-- 🧪 **Evaluar el impacto del nuevo diseño** en la tasa de finalización del proceso online.
-- 📊 **Explorar diferencias de comportamiento** digital entre usuarios del grupo control y test.
-- 📉 **Analizar la interacción paso a paso**, el abandono y el comportamiento por perfil de cliente.
-- 📈 **Realizar test de hipótesis** para validar estadísticamente las diferencias encontradas.
-- 📌 **Ofrecer recomendaciones finales** basadas en datos reales y visualizaciones claras.
+- ✅ `conversion_rate`: usuarios que alcanzan el paso final (`step_15`).
+- 🧭 `unique_steps_count`: número de pasos distintos realizados.
+- 🔁 `total_steps_count`: pasos totales, incluidas repeticiones.
+- ⏱️ `total_duration`: tiempo entre primer y último paso.
+- ⏱️ `avg_time_between_steps`: tiempo medio entre pasos consecutivos.
+
+Se calcularon por grupo experimental (Test / Control) y se usaron en los análisis estadísticos y visualizaciones.
 
 ---
 
-## 📌 Principales KPIs analizados
+## ✂️ Análisis de outliers y limpieza final
 
-- ✅ **Tasa de finalización del proceso online**  
-  Proporción de usuarios que alcanzan el paso de confirmación.
+Antes de los tests estadísticos:
 
-- 🧭 **Número de pasos únicos completados por cliente**  
-  Cuántos pasos distintos (`step_1`, `step_2`…) ha alcanzado cada cliente.
-
-- 🔁 **Número total de pasos realizados** (incluyendo repeticiones y retrocesos)  
-  Cuántas veces un cliente navegó entre pasos, incluso si repitió alguno.
-
-- ⏱️ **Duración total del proceso**  
-  Tiempo en segundos entre el primer y el último `process_step` registrado para un cliente.
-
-- ⏱️ **Tiempo medio por paso**  
-  Tiempo promedio (en segundos) entre pasos consecutivos de un mismo cliente.
-
-- 🧓 **Segmentación de resultados por edad, género, saldo, antigüedad...**  
-  Comparación de comportamiento y resultados entre distintos perfiles.
+- Se identificaron valores extremos en duración (`> 8.600 seg`, percentil 77).
+- Se decidió **filtrar solo por duración total**, para no generar inconsistencias en KPIs.
+- Esta muestra filtrada permitió realizar análisis más representativos y robustos.
 
 ---
 
 ## 🧪 Hipótesis planteadas
 
 1. **H₀**: La tasa de finalización es igual en Test y Control  
-   **H₁**: La tasa de finalización es mayor en el grupo Test
+   **H₁**: Es mayor en el grupo Test
 
 2. **H₀**: No hay diferencia en los pasos únicos completados  
-   **H₁**: El grupo Test completa más pasos distintos que el grupo Control
+   **H₁**: El grupo Test completa más pasos
 
 3. **H₀**: El rediseño impacta igual a todos los perfiles  
-   **H₁**: El efecto varía según edad y/o antigüedad del cliente.
+   **H₁**: El efecto varía por edad y/o antigüedad
 
-4. **H₀**: El tiempo total del proceso es igual en ambos grupos  
-   **H₁**: El grupo Test completa el proceso en menos tiempo
+4. **H₀**: El tiempo total es igual en ambos grupos  
+   **H₁**: El grupo Test tarda menos
 
-5. **H₀**: No hay diferencia en el número total de pasos (con repeticiones) entre grupos  
-   **H₁**: El grupo Test necesita menos pasos totales para completar el proceso
+5. **H₀**: El número total de pasos es igual  
+   **H₁**: El grupo Test necesita menos pasos
 
-6. **H₀**: No hay diferencia en el tiempo medio por paso entre grupos  
-   **H₁**: El grupo Test navega más rápido entre pasos
-
-
----
-
-## 📊 Visualización en PowerBI
-
-> 🧭 Visualización interactiva del análisis:  
-> [Abrir dashboard en Power BI](./PowerBI/vanguard_dashboard.pbix)
+6. **H₀**: El tiempo medio por paso es igual  
+   **H₁**: El grupo Test navega más rápido
 
 ---
 
-## 📂 Presentación final
+## 📊 Visualización en Power BI
 
-> 🎤 Presentación resumida del proyecto:  
-> [Ver en Canva](#)
+> 📎 [Abrir dashboard interactivo](./PowerBI/vanguard_dashboard.pbix)
+
+---
+
+## 🗣️ Presentación del proyecto
+
+> 🎤 [Ver presentación final (PDF)](./slides/Vanguard%20AB-Test.pdf)
 
 ---
 
 ## 🛠️ Librerías utilizadas
 
-- `pandas`
-- `numpy`
-- `matplotlib`
-- `seaborn`
-- `scipy.stats`
-- `statsmodels`
-- `plotly`
+- `pandas`, `numpy`, `scipy.stats`, `statsmodels`
+- `matplotlib`, `seaborn`, `plotly`
 - `Jupyter Notebooks`
 
 ---
 
 ## 🚀 Cómo ejecutar este proyecto
 
-1. Clona el repositorio  
-   \`git clone https://github.com/tuusuario/vanguard-ab-test.git\`
+1. Clona el repositorio:  
+   ```bash
+   git clone https://github.com/tuusuario/vanguard-ab-test.git
+   ```
 
-2. (Opcional) Crea un entorno virtual  
-   \`python -m venv venv && source venv/bin/activate\`
+2. (Opcional) Crea un entorno virtual:  
+   ```bash
+   python -m venv venv && source venv/bin/activate
+   ```
 
-3. Instala las dependencias  
-   \`pip install -r requirements.txt\`
+3. Instala las dependencias:  
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-4. Ejecuta los notebooks en orden desde el directorio \`notebooks/\`
+4. Ejecuta los notebooks en orden desde el directorio `notebooks/`
 
 ---
 
@@ -166,11 +152,10 @@ Este proceso permitió asegurar la calidad, consistencia y fiabilidad de los dat
 
 - [Fran Ramírez](https://github.com/fran-eliot)  
 - Fred Mpeso  
-- [Andrés Muñoz](https://github.com/andreuti)  
+- [Andrés Muñoz](https://github.com/andreuti)
 
 ---
 
 ## 📄 Licencia
 
 Proyecto desarrollado como parte del **Bootcamp de Data Analytics – Ironhack**, con fines educativos y no comerciales.
-
