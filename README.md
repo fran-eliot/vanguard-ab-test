@@ -1,8 +1,8 @@
 # 📊 Vanguard A/B Test – Proyecto de Experimento Digital
 
 ![Python](https://img.shields.io/badge/python-3.10-blue)
-![Platform](https://img.shields.io/badge/platform-Jupyter%20%7C%20Pandas%20%7C%20Scikit--Learn%20%7C%20Seaborn-lightgrey)
-![Notebooks](https://img.shields.io/badge/jupyter-Notebook-orange)
+![Jupyter](https://img.shields.io/badge/Jupyter_Notebooks-%E2%9C%94-orange)
+![Pandas](https://img.shields.io/badge/Pandas-1.5%2B-lightgrey)
 ![License: Educational](https://img.shields.io/badge/license-Educational-informational)
 ![Last Commit](https://img.shields.io/github/last-commit/fran-eliot/vanguard-ab-test)
 ![Repo Size](https://img.shields.io/github/repo-size/fran-eliot/vanguard-ab-test)
@@ -78,6 +78,7 @@ Se calcularon por grupo experimental (Test / Control) y se usaron en los anális
 
 Antes de los tests estadísticos:
 
+- Se detectaron usuarios que dejaban el proceso abierto durante días, generando valores extremos.
 - Se identificaron valores extremos en duración (`> 8.600 seg`, percentil 77).
 - Se decidió **filtrar solo por duración total**, para no generar inconsistencias en KPIs.
 - Esta muestra filtrada permitió realizar análisis más representativos y robustos.
@@ -87,34 +88,81 @@ Antes de los tests estadísticos:
 ## 🧪 Hipótesis planteadas
 
 1. **H₀**: La tasa de finalización es igual en Test y Control  
+   ✅ Rechazada → Test tiene una mayor tasa de finalización (test z-proporciones, p < 0.05)
    **H₁**: Es mayor en el grupo Test
 
 2. **H₀**: No hay diferencia en los pasos únicos completados  
+   ✅ Rechazada → El grupo Test visita más pasos distintos (Mann-Whitney U)
    **H₁**: El grupo Test completa más pasos
 
 3. **H₀**: El rediseño impacta igual a todos los perfiles  
+   ❌ No rechazada → No hay diferencias significativas por edad o antigüedad
    **H₁**: El efecto varía por edad y/o antigüedad
 
 4. **H₀**: El tiempo total es igual en ambos grupos  
+   ✅ Rechazada → Test completa el proceso en menos tiempo
    **H₁**: El grupo Test tarda menos
 
-5. **H₀**: El número total de pasos es igual  
+5. **H₀**: El número total de pasos es igual
+   ✅ Rechazada → El grupo Test navega con mayor eficiencia
    **H₁**: El grupo Test necesita menos pasos
 
 6. **H₀**: El tiempo medio por paso es igual  
+   ✅ Rechazada → El grupo Test muestra mayor fluidez
    **H₁**: El grupo Test navega más rápido
+
+---
+
+## 🧾 Análisis detallado
+
+Se emplearon:
+
+- Histogramas, boxplots y distribuciones
+
+- Tests estadísticos no paramétricos (U de Mann-Whitney, Kruskal-Wallis)
+
+- Test de proporciones para tasa de conversión
+
+- Segmentaciones por edad, género y saldo
+
+---
+
+## 📌 Principales KPIs
+
+| KPI                       | Definición |
+|---------------------------|------------|
+| ✅ Tasa de finalización   | ¿Finalizó el proceso? |
+| 🧭 Pasos únicos           | Pasos distintos alcanzados |
+| 🔁 Total de pasos         | Incluye repeticiones y retrocesos |
+| ⏱️ Duración total         | Tiempo entre primer y último paso |
+| ⏱️ Tiempo medio por paso  | Fluidez del proceso |
+| 👥 Segmentación           | Comparativa por perfil de cliente |
 
 ---
 
 ## 📊 Visualización en Power BI
 
-> 📎 [Abrir dashboard interactivo](./PowerBI/vanguard_dashboard.pbix)
+> 📎 [Abrir dashboard interactivo localmente con PowerBI Desktop](./PowerBI/vanguard_dashboard.pbix)
 
 ---
 
 ## 🗣️ Presentación del proyecto
 
-> 🎤 [Ver presentación final (PDF)](./slides/Vanguard%20AB-Test.pdf)
+> 🎤 [Ver presentación resumida del proyecto (PDF)](./slides/Vanguard%20AB-Test.pdf)
+
+---
+
+## 🎯 Conclusiones finales
+
+- ✅ El rediseño mejora significativamente la tasa de conversión
+
+- ⏱️ Se reduce la duración total y el número de pasos necesarios
+
+- 🧭 El flujo es más fluido e intuitivo
+
+- 👤 No se observaron diferencias significativas entre perfiles
+
+- 💡 Recomendación: desplegar el rediseño y seguir monitorizando la interacción digital
 
 ---
 
@@ -130,7 +178,7 @@ Antes de los tests estadísticos:
 
 1. Clona el repositorio:  
    ```bash
-   git clone https://github.com/tuusuario/vanguard-ab-test.git
+   git clone https://github.com/fran-eliot/vanguard-ab-test.git
    ```
 
 2. (Opcional) Crea un entorno virtual:  
@@ -157,4 +205,6 @@ Antes de los tests estadísticos:
 
 ## 📄 Licencia
 
-Proyecto desarrollado como parte del **Bootcamp de Data Analytics – Ironhack**, con fines educativos y no comerciales.
+- Proyecto desarrollado como parte del **Bootcamp de Data Analytics – Ironhack**, con fines estrictamente educativos.
+
+- No está destinado para uso comercial ni representa a la empresa Vanguard.
