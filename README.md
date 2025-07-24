@@ -1,9 +1,9 @@
 # 📊 Vanguard A/B Test – Proyecto de Experimento Digital
 
-![Status](https://img.shields.io/badge/status-Finalizado-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.10-blue)
+![Platform](https://img.shields.io/badge/platform-Jupyter%20%7C%20Pandas%20%7C%20Scikit--Learn%20%7C%20Seaborn-lightgrey)
 ![Notebooks](https://img.shields.io/badge/jupyter-Notebook-orange)
-![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![License: Educational](https://img.shields.io/badge/license-Educational-informational)
 ![Last Commit](https://img.shields.io/github/last-commit/fran-eliot/vanguard-ab-test)
 ![Repo Size](https://img.shields.io/github/repo-size/fran-eliot/vanguard-ab-test)
 
@@ -35,7 +35,6 @@ vanguard-ab-test/
 ├── notebooks/       # Jupyter Notebooks con el análisis
 ├── PowerBI/         # Dashboard interactivo
 ├── slides/          # Presentación final
-├── src/             # Funciones auxiliares
 ├── README.md        # Este archivo
 └── requirements.txt # Librerías necesarias
 ```
