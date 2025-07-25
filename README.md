@@ -89,27 +89,21 @@ Antes de los tests estadísticos:
 
 1. **H₀**: La tasa de finalización es igual en Test y Control  
    ✅ Rechazada → Test tiene una mayor tasa de finalización (test z-proporciones, p < 0.05)
-   **H₁**: Es mayor en el grupo Test
 
 2. **H₀**: No hay diferencia en los pasos únicos completados  
    ✅ Rechazada → El grupo Test visita más pasos distintos (Mann-Whitney U)
-   **H₁**: El grupo Test completa más pasos
 
 3. **H₀**: El rediseño impacta igual a todos los perfiles  
    ❌ No rechazada → No hay diferencias significativas por edad o antigüedad
-   **H₁**: El efecto varía por edad y/o antigüedad
 
 4. **H₀**: El tiempo total es igual en ambos grupos  
    ✅ Rechazada → Test completa el proceso en menos tiempo
-   **H₁**: El grupo Test tarda menos
 
-5. **H₀**: El número total de pasos es igual
+5. **H₀**: El número total de pasos es igual 
    ✅ Rechazada → El grupo Test navega con mayor eficiencia
-   **H₁**: El grupo Test necesita menos pasos
 
 6. **H₀**: El tiempo medio por paso es igual  
    ✅ Rechazada → El grupo Test muestra mayor fluidez
-   **H₁**: El grupo Test navega más rápido
 
 ---
 
