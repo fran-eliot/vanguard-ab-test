@@ -7,6 +7,8 @@
 ![Last Commit](https://img.shields.io/github/last-commit/fran-eliot/vanguard-ab-test)
 ![Repo Size](https://img.shields.io/github/repo-size/fran-eliot/vanguard-ab-test)
 
+---
+
 ## 🧠 Descripción del proyecto
 
 Este proyecto analiza un experimento A/B llevado a cabo por el equipo de Customer Experience de **Vanguard**, una de las gestoras de inversión más importantes de EE.UU.
@@ -53,110 +55,102 @@ vanguard-ab-test/
 
 ## 🧹 Limpieza y preparación de datos
 
-- 🔍 **Valores nulos y duplicados**: eliminación o imputación según relevancia.
-- 🧮 **Conversión de tipos**: fechas (`datetime`), categorías (`category`), etc.
-- 🔗 **Fusión de datasets**: unión de las tres fuentes en un único dataframe.
-- 🧪 **Filtrado de registros no válidos**: usuarios sin pasos digitales.
-- ⚠️ **Tratamiento de outliers**: detección y gestión en `saldo`, `edad`, `duración`.
-- 🧱 **Variables adicionales**: KPIs como número de pasos, duración, agrupación por edad.
+- 🔍 Eliminación de valores nulos y duplicados
+- 🧮 Conversión de tipos (`datetime`, `category`, etc.)
+- 🔗 Fusión de datasets en un único dataframe
+- 🧪 Filtrado de registros inválidos (sin pasos digitales)
+- ⚠️ Gestión de outliers (edad, saldo, duración)
+- 🧱 Creación de KPIs adicionales
 
 ---
 
 ## 📐 Métricas calculadas
 
-- ✅ `conversion_rate`: usuarios que alcanzan el paso final (`step_15`).
-- 🧭 `unique_steps_count`: número de pasos distintos realizados.
-- 🔁 `total_steps_count`: pasos totales, incluidas repeticiones.
-- ⏱️ `total_duration`: tiempo entre primer y último paso.
-- ⏱️ `avg_time_between_steps`: tiempo medio entre pasos consecutivos.
-
-Se calcularon por grupo experimental (Test / Control) y se usaron en los análisis estadísticos y visualizaciones.
+- ✅ `conversion_rate`: usuarios que alcanzan el paso final (`step_15`)
+- 🧭 `unique_steps_count`: pasos únicos realizados
+- 🔁 `total_steps_count`: pasos totales (incluyendo repeticiones)
+- ⏱️ `total_duration`: tiempo entre primer y último paso
+- ⏱️ `avg_time_between_steps`: tiempo medio entre pasos consecutivos
 
 ---
 
-## ✂️ Análisis de outliers y limpieza final
+## ✂️ Análisis de outliers
 
-Antes de los tests estadísticos:
-
-- Se detectaron usuarios que dejaban el proceso abierto durante días, generando valores extremos.
-- Se identificaron valores extremos en duración (`> 8.600 seg`, percentil 77).
-- Se decidió **filtrar solo por duración total**, para no generar inconsistencias en KPIs.
-- Esta muestra filtrada permitió realizar análisis más representativos y robustos.
+- Se identificaron usuarios con sesiones abiertas durante días
+- Se filtró la muestra por duración total (`p77` ≈ 8600 seg)
+- Esto permitió análisis más representativos sin distorsión de KPIs
 
 ---
 
 ## 🧪 Hipótesis planteadas
 
-1. **H₀**: La tasa de finalización es igual en Test y Control  
-   ✅ Rechazada → Test tiene una mayor tasa de finalización (test z-proporciones, p < 0.05)
-
-2. **H₀**: No hay diferencia en los pasos únicos completados  
-   ✅ Rechazada → El grupo Test visita más pasos distintos (Mann-Whitney U)
-
-3. **H₀**: El rediseño impacta igual a todos los perfiles  
-   ❌ No rechazada → No hay diferencias significativas por edad o antigüedad
-
-4. **H₀**: El tiempo total es igual en ambos grupos  
-   ✅ Rechazada → Test completa el proceso en menos tiempo
-
-5. **H₀**: El número total de pasos es igual 
-   ✅ Rechazada → El grupo Test navega con mayor eficiencia
-
-6. **H₀**: El tiempo medio por paso es igual  
-   ✅ Rechazada → El grupo Test muestra mayor fluidez
-
----
-
-## 🧾 Análisis detallado
-
-Se emplearon:
-
-- Histogramas, boxplots y distribuciones
-
-- Tests estadísticos no paramétricos (U de Mann-Whitney, Kruskal-Wallis)
-
-- Test de proporciones para tasa de conversión
-
-- Segmentaciones por edad, género y saldo
+1. ✅ **El nuevo diseño mejora la tasa de finalización** (p < 0.001)
+2. ✅ **Mayor número de pasos únicos en Test** (Mann-Whitney U, p < 0.001)
+3. ❌ **No hay diferencias significativas por perfil** (edad, antigüedad)
+4. ✅ **El grupo Test navega más rápido** (p < 0.001)
+5. ✅ **Navegación más eficiente en Test** (más pasos sin mayor duración)
+6. ✅ **Fluidez superior en Test** (tiempo medio por paso menor)
 
 ---
 
 ## 📌 Principales KPIs
 
-| KPI                       | Definición |
-|---------------------------|------------|
-| ✅ Tasa de finalización   | ¿Finalizó el proceso? |
-| 🧭 Pasos únicos           | Pasos distintos alcanzados |
-| 🔁 Total de pasos         | Incluye repeticiones y retrocesos |
-| ⏱️ Duración total         | Tiempo entre primer y último paso |
-| ⏱️ Tiempo medio por paso  | Fluidez del proceso |
-| 👥 Segmentación           | Comparativa por perfil de cliente |
+| KPI                       | Descripción |
+|---------------------------|-------------|
+| ✅ Tasa de finalización   | Finaliza el proceso (`step_15`) |
+| 🧭 Pasos únicos           | Distintos pasos completados |
+| 🔁 Pasos totales          | Incluye repeticiones y retrocesos |
+| ⏱️ Duración total         | Tiempo total del proceso |
+| ⏱️ Tiempo medio por paso  | Tiempo promedio entre pasos |
+| 👥 Segmentación           | Análisis por edad, antigüedad y género |
 
 ---
 
 ## 📊 Visualización en Power BI
 
 > 📎 [Abrir dashboard interactivo localmente con PowerBI Desktop](./PowerBI/vanguard_dashboard.pbix)
+    ⚠️ Requiere Power BI Desktop para visualizarlo.
 
 ---
 
 ## 🗣️ Presentación del proyecto
 
-> 🎤 [Ver presentación resumida del proyecto (PDF)](./slides/Vanguard%20AB-Test.pdf)
+> 🎤 [Ver presentación resumen (PDF)](./slides/Vanguard%20AB-Test.pdf)
 
 ---
 
-## 🎯 Conclusiones finales
+## 📌 Conclusiones generales
 
-- ✅ El rediseño mejora significativamente la tasa de conversión
+### ✅ Impacto positivo del rediseño
 
-- ⏱️ Se reduce la duración total y el número de pasos necesarios
+- Tasa de finalización Test: **68%**, Control: **64%**
+- Mejora significativa (*p* < 0.001)
 
-- 🧭 El flujo es más fluido e intuitivo
+### 🧠 Cambios en el comportamiento digital
 
-- 👤 No se observaron diferencias significativas entre perfiles
+- Más pasos únicos y navegación más fluida en Test
+- No reduce duración total, pero mejora la experiencia
 
-- 💡 Recomendación: desplegar el rediseño y seguir monitorizando la interacción digital
+### 👥 Diferencias por perfil
+
+- Jóvenes (18–30) y nuevos clientes: mayor beneficio
+- Usuarios veteranos: menor efecto
+
+### 🧩 Robustez analítica
+
+- Filtrado de outliers por duración
+- Uso de tests estadísticos adecuados según distribución
+
+---
+
+## 📌 Recomendaciones finales
+
+| Recomendación                                | Motivo                                                       |
+|---------------------------------------------|--------------------------------------------------------------|
+| ✅ **Desplegar el nuevo diseño**             | Mejora probada en tasa de finalización y experiencia digital |
+| 📊 **Monitorizar por segmentos**             | Detectamos mayor efecto en jóvenes y perfiles recientes      |
+| 🧪 **Ampliar test a procesos similares**     | El enfoque funciona y puede trasladarse a otros journeys     |
+| 🧠 **Complementar con análisis cualitativo** | Para entender por qué ciertos perfiles no mejoran tanto      |
 
 ---
 
@@ -170,22 +164,14 @@ Se emplearon:
 
 ## 🚀 Cómo ejecutar este proyecto
 
-1. Clona el repositorio:  
-   ```bash
-   git clone https://github.com/fran-eliot/vanguard-ab-test.git
-   ```
+```bash
+git clone https://github.com/fran-eliot/vanguard-ab-test.git
+cd vanguard-ab-test
+python -m venv venv && source venv/bin/activate  # En Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-2. (Opcional) Crea un entorno virtual:  
-   ```bash
-   python -m venv venv && source venv/bin/activate
-   ```
-
-3. Instala las dependencias:  
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Ejecuta los notebooks en orden desde el directorio `notebooks/`
+Luego, abre y ejecuta los notebooks en orden desde el directorio `notebooks/`.
 
 ---
 
@@ -199,6 +185,4 @@ Se emplearon:
 
 ## 📄 Licencia
 
-- Proyecto desarrollado como parte del **Bootcamp de Data Analytics – Ironhack**, con fines estrictamente educativos.
-
-- No está destinado para uso comercial ni representa a la empresa Vanguard.
+Proyecto desarrollado para el **Bootcamp de Data Analytics – Ironhack**, con fines educativos. No representa a la empresa Vanguard ni está destinado a uso comercial.
